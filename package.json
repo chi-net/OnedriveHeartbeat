@@ -1,0 +1,24 @@
+{
+  "name": "oneheartbeat",
+  "version": "1.0.0",
+  "description": "Let your microsoft api alive",
+  "main": "app.js",
+  "scripts": {
+    "start":"node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/konnyaku-studio-team/OneHeartbeat.git"
+  },
+  "author": "chihuo2104",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/konnyaku-studio-team/OneHeartbeat/issues"
+  },
+  "homepage": "https://github.com/konnyaku-studio-team/OneHeartbeat#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-cron": "^3.0.0",
+    "request": "^2.88.2"
+  }
+}
