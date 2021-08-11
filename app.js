@@ -30,36 +30,36 @@ function isFileExisted(path_way) {
 // cron.schedule("* * * * *",function(){
 
 // })
-cron.schedule("55 * * * *",function(){
+if((isFileExisted("./tmp/first"))){
+    request({
+        url: config.endpointurl,
+        method: "POST",//请求方式，默认为get
+        headers: {//设置请求头
+            "content-type": "x-www-form-urlencoded",
+        },
+        form: {
+            "client_id":config.client_id,
+            "client_secret":config.client_secret,
+            "redirect_uri":config.redirect_url,
+            "code":config.code,
+            "grant_type":"authorization_code",
+            // "response_type":"code",
+        },
+        json: true 
+    }, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body.access_token);
+            access_token=body.access_token;
+            console.log(body.refresh_token);
+            refresh_token=body.refresh_token;
+        }else{
+            console.log("NO FIRST")
+            console.log(body);
+        }
+    });            
+}
+cron.schedule("*/59 * * * *",function(){
     console.log("EXECUSED")
-    if((isFileExisted("./tmp/first"))){
-        request({
-            url: config.endpointurl,
-            method: "POST",//请求方式，默认为get
-            headers: {//设置请求头
-                "content-type": "x-www-form-urlencoded",
-            },
-            form: {
-                "client_id":config.client_id,
-                "client_secret":config.client_secret,
-                "redirect_uri":config.redirect_url,
-                "code":config.code,
-                "grant_type":"authorization_code",
-                // "response_type":"code",
-            },
-            json: true 
-        }, function(error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(body.access_token);
-                access_token=body.access_token;
-                console.log(body.refresh_token);
-                refresh_token=body.refresh_token;
-            }else{
-                console.log("NO FIRST")
-                console.log(body);
-            }
-        });            
-    }else{
         request({
             url: config.endpointurl,
             method: "POST",//请求方式，默认为get
@@ -87,6 +87,5 @@ cron.schedule("55 * * * *",function(){
                 console.log(body);
             }
         });  
-        }
 });
 app.listen(4837);
