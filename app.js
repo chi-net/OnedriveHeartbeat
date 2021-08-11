@@ -1,8 +1,10 @@
 const express=require('express');
 const request=require('request');
 const cron=require('node-cron');
+const crypto=require('crypto');
 const config=require('./config');
 const fs=require('fs');
+var md5 = crypto.createHash('md5');
 var access_token;
 var refresh_token;
 var app=express();
@@ -10,6 +12,29 @@ app.get('/',function(req,res){
     res.status=403;
     res.end("<h4>403 Forbidden.</h1>")
 });
+function jq(utime,token){
+    if(((Math.round(new Date().getTime()/1000)-utime)<5)){
+        if((md5.update(JSON.stringify({"token":config.auth.token,"time":utime})).digest('hex'))==token){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
+app.get('/api/getaccesstoken',function(req,res){
+    if(config.auth.enabled){
+        if(jq(req.query.time,req.query.token)){
+            res.end(JSON.stringify({"status":200,"access_token":access_token}));
+        }else{
+            res.status(401);
+            res.end(JSON.stringify({"status":401,"error":"failed to auth your identity"}));
+        }
+    }else{
+        res.end(JSON.stringify({"status":200,"access_token":access_token}));
+    }
+})
 function isFileExisted(path_way) {
     return new Promise((resolve, reject) => {
       fs.access(path_way, (err) => {

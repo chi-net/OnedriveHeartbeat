@@ -28,6 +28,8 @@
 
 ### 亲测可用！续命可以成功。
 
+### 最新版目前在测试中......
+
 ## 碰到问题怎么办？
 
 issue里面解决！
@@ -43,4 +45,31 @@ request 发送请求
 express 网络服务
 
 node-cron 定时任务
+
+crypto 鉴权需要使用的加密
+
+# API
+
+## 获取AccessToken
+
+	/api/getaccesstoken
+
+鉴权方式：
+
+#### 鉴权.......测试功能，目前作者自己还没有测试qwq
+
+你的token与传入的unix时间打包成以下JSON（推荐使用JSON.stringify）
+
+```JSON
+{
+	"token":你在config.js里面传入的token,
+	"time":你传入的unix时间戳
+}
+```
+
+然后再将这个MD5后发出去
+
+范例：
+
+	/api/getaccesskey?time=1628651194&token=1a2b3c4d6e5f6a7de8
 
