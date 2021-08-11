@@ -63,8 +63,14 @@ crypto 鉴权需要使用的加密
 ```JSON
 {
 	"token":你在config.js里面传入的token,
-	"time":你传入的unix时间戳
+	"time":你传入的unix时间戳（注意要是字符串，否则会出现鉴权失败的神仙问题）
 }
+```
+
+压缩了之后是这样的
+
+```JSON
+{"token":"mywdnmdtoken","time":"1628655500"}
 ```
 
 然后再将这个MD5后发出去
