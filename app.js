@@ -10,18 +10,36 @@ const fs=require('fs');
 var access_token;
 var refresh_token;
 var app=express();
+if(config.cors.enabled){
+    console.log("[信息]CORS跨域问题解决已经开启");
+    console.log("允许的域名："+config.cors.website);
+    app.options("*",function(req,res,next){
+        res.append('Access-Control-Allow-Origin',config.cors.website);
+        res.append("Access-Control-Allow-Methods","GET,POST,OPTIONS,PUT,DELETE");
+        res.append("Access-Control-Allow-Headers","*");
+        res.append("Access-Control-Max-Age",1728000);
+        res.status(204);
+        res.end("");
+        next();
+    });    
+    app.get("*",function(req,res,next){
+        res.append('Access-Control-Allow-Origin',config.cors.website);
+        next();
+    })
+}
+
 app.get('/',function(req,res){
     res.status=403;
     res.end("<h4>403 Forbidden.</h1>")
 });
 function jq(utime,token){
     if(((Math.round(new Date().getTime()/1000)-utime)<5)){
-        console.log("in 5s:");
+        // console.log("in 5s:");
         var authtoken=md5(JSON.stringify({"token":config.auth.token,"time":utime}));
         console.log(JSON.stringify({"token":config.auth.token,"time":utime}))
-        console.log(token);
-        console.log(authtoken);
-        console.log(token==authtoken);
+        // console.log(token);
+        // console.log(authtoken);
+        // console.log(token==authtoken);
         // console.l
         // og(authtoken);
         // console.log(md5.update(JSON.stringify({"token":config.auth.token,"time":utime})).digest('hex'))
@@ -105,7 +123,7 @@ if((isFileExisted("./tmp/first"))){
     });            
 }
 cron.schedule("*/59 * * * *",function(){
-    console.log("EXECUSED")
+    // console.log("EXEUSED")
         request({
             url: config.endpointurl,
             method: "POST",//请求方式，默认为get

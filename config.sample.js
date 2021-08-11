@@ -18,8 +18,11 @@ module.exports={
         然后再将JSON串MD5后当Token发送.
         我们会比较你传入的Unix时间与本机的Unix时间,如果时间相差5s以上,则不通过鉴权.
         */        
+    },
+    cors:{
+        enabled:true,//解决CORS跨域问题
+        website:"",//CORS允许的域名,如果填*则是所有域名.
     }
-
 }
 /*
 具体不知道OneDrive API的可以看这篇文章:
