@@ -54,7 +54,7 @@ crypto 鉴权需要使用的加密
 
 	/api/getaccesstoken
 
-鉴权方式：
+鉴权方式：（自己可以在config.json 里面auth enabled调整）
 
 #### 鉴权.......测试功能，目前作者自己还没有测试qwq
 
@@ -73,3 +73,4 @@ crypto 鉴权需要使用的加密
 
 	/api/getaccesskey?time=1628651194&token=1a2b3c4d6e5f6a7de8
 
+### 注意！传入Unix时间不允许与本机时间相差5s以上，否则会鉴权失败。
