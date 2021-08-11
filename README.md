@@ -81,3 +81,29 @@ crypto 鉴权需要使用的加密
 
 ### 注意！传入Unix时间不允许与本机时间相差5s以上，否则会鉴权失败。
 
+鉴权成功示例：
+
+```JSON
+{"status":200,"access_token":"eyJ0e*******一大堆玩意SnaAjmw32NYoi-kX1CWgNK8qh3xyZcI4VYf5LCFiEALM214FrKHFctuJ0wrdT-je65kPeKjAM01CNl3ctb0gL5ePW1VWZmkGhpR_4iTwZHWp2uUT7Bcz032ywFfEn8MTXVO6_JZAAraAT9Q"}
+```
+
+鉴权失败示例：
+
+```JSON
+{"status":401,"error":"failed to auth your identity"}
+```
+
+简单实现：
+
+通过JS XHR方式实现：
+
+```javascript
+var XHR=new XMLHttpRequest();
+XHR.open("GET","http://你的示例地址/api/getaccesstoken?time="+Math.round(new Date().getTime()/1000)+"&token="+md5(JSON.stringify({"token":"你自己的token","time":(Math.round(new Date().getTime()/1000))+""})));
+XHR.onreadystatechange=function(){
+	if(XHR.status==200){
+		console.log("您的Access_token:"+JSON.parse(XHR.responseText).access_token);
+	}
+}
+XHR.send()
+```
