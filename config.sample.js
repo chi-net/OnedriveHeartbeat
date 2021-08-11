@@ -13,7 +13,7 @@ module.exports={
         JSON
         {
             "token":你设置的token(注意要加引号),
-            "unixtime":与你传入的UnixTime要相一致.
+            "time":与你传入的UnixTime要相一致.
         }
         然后再将JSON串MD5后当Token发送.
         我们会比较你传入的Unix时间与本机的Unix时间,如果时间相差5s以上,则不通过鉴权.
