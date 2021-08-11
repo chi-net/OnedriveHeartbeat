@@ -52,7 +52,7 @@ crypto 鉴权需要使用的加密
 
 ## 获取AccessToken
 
-	/api/getaccesstoken
+	GET /api/getaccesstoken
 
 鉴权方式：（自己可以在config.json 里面auth enabled调整）
 
